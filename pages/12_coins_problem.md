@@ -4,12 +4,27 @@ title: 12 Coins Problem
 description:
 ---
 
-You are given 12 coins that look identical and a pair of scales.
+The 12 Coins Problem is a popular interview question, at least on Wall Street.  
+
+Description:
+
+>You are given 12 coins that look identical and a pair of scales.
 One of the coins is fake and has a different weight than the others.  Your challenge 
 is to use the scales at most three times to determine which coin is fake and whether it 
 is light or heavier than a real coin.  You can weigh any group of coins against 
 another using the scales to see if they balance or which is heavier, but you cannot 
 directly measure the weights of the coins.
+
+Timothy Falcon Crack in his quant interview guide gives several solutions, but none of them, at least to me, really explains what is so special about 12 and three weighings.  Not to mention, how do we conceptually see that we should start off with dividing the 12 coins into three groups of 4? 
+
+However, it turns out there is a way to think of this as an information-theoretic problem.  Using this approach, it becomes very clear why three weighings were picked and why we use three groups of 4.  
+
+First a little bit of history regarding this solution.  
+http://www.math.ucla.edu/~shlyakht/191.1.08f/
+
+That might seem all very intimidating, and there are some fairly technical explanations on the Internet.  My purpose here is to give a plain and simple explanation of the information-theoretic argument which relies only on having an intuition about what an encoding is.  Shannon entropy lurks in the background but is not explicitly referred to.
+
+Let's start with constructing the code and showing why it enables us to solve the problem.  After that, I will explain how you could, in theory, have come up with the code construction, just by thinking in a straightforward manner.
     
 The code we are constructing uses the alphabet `{ O, R, L }` with each word being 
     three letters, i.e. `ORL`, `LLR`, `R00`...
