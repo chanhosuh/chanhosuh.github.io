@@ -2,6 +2,8 @@
 layout: page
 title: 12 Coins Problem
 description:
+---
+
 
 The 12 Coins Problem is a popular interview question, at least on Wall Street.
 
@@ -11,7 +13,6 @@ is to use the scales at most three times to determine which coin is fake and whe
 is light or heavier than a real coin.  You can weigh any group of coins against 
 another using the scales to see if they balance or which is heavier, but you cannot 
 directly measure the weights of the coins.
----
 
 Timothy Falcon Crack in his quant interview guide gives several solutions, but none of them, at least to me, really explains what is so special about 12 and three weighings.  Not to mention, how do we conceptually see that we should start off with dividing the 12 coins into three groups of 4? 
 
