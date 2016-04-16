@@ -2,27 +2,22 @@
 layout: page
 title: 12 Coins Problem
 description:
----
 
-The 12 Coins Problem is a popular interview question, at least on Wall Street.  
+The 12 Coins Problem is a popular interview question, at least on Wall Street.
 
-Description:
-
->You are given 12 coins that look identical and a pair of scales.
+You are given 12 coins that look identical and a pair of scales.
 One of the coins is fake and has a different weight than the others.  Your challenge 
 is to use the scales at most three times to determine which coin is fake and whether it 
 is light or heavier than a real coin.  You can weigh any group of coins against 
 another using the scales to see if they balance or which is heavier, but you cannot 
 directly measure the weights of the coins.
+---
 
 Timothy Falcon Crack in his quant interview guide gives several solutions, but none of them, at least to me, really explains what is so special about 12 and three weighings.  Not to mention, how do we conceptually see that we should start off with dividing the 12 coins into three groups of 4? 
 
 However, it turns out there is a way to think of this as an information-theoretic problem.  Using this approach, it becomes very clear why three weighings were picked and why we use three groups of 4.  
 
-First a little bit of history regarding this solution.  
-http://www.math.ucla.edu/~shlyakht/191.1.08f/
-
-That might seem all very intimidating, and there are some fairly technical explanations on the Internet.  My purpose here is to give a plain and simple explanation of the information-theoretic argument which relies only on having an intuition about what an encoding is.  Shannon entropy lurks in the background but is not explicitly referred to.
+There are some fairly technical explanations of this on the Internet.  My purpose here is to give a plain and simple explanation of the information-theoretic argument which relies only on having an intuition about what an encoding is.  Shannon entropy lurks in the background but is not explicitly referred to.
 
 Let's start with constructing the code and showing why it enables us to solve the problem.  After that, I will explain how you could, in theory, have come up with the code construction, just by thinking in a straightforward manner.
     
@@ -105,20 +100,21 @@ So from an information theoretic viewpoint, we see very clearly why we must divi
 three groups of four, something which may strike us as very mysterious when using trial-and-error to 
 derive the solution!
 
- another nice thing about viewing the problem this way, is it lets us generalize to more coins and more 
- weighings.  If we allow four weighings, what's the largest number of coins for which we can determine 
- the fake coin?  With three weighings, we saw that 12 is the optimal number.  Anymore, and we simply 
- would not have enough codewords.  
+Another nice thing about viewing the problem this way, is it lets us generalize to more coins and more 
+weighings.  If we allow four weighings, what's the largest number of coins for which we can determine 
+the fake coin?  With three weighings, we saw that 12 is the optimal number.  Anymore, and we simply 
+would not have enough codewords.  
  
- For four weighings, we have 3^4 = 81 possible codewords.  As before OOOO is not allowed, so that leaves 
- us with 80 possibilities.  Again, there are 40 reflection pairs, so we can have at most 40 coins.  Note 
- that 27 codewords (modulo reflections) are allowed for coins being placed on the scale, and 13 for off the scale.   
- Again the restriction that we allow only equal numbers to be placed on each side of the scale means that 
- 13 is the largest that can be placed on each side.  So we have 26 coins being placed on a scale at once 
- and that leaves 13 for off the scale, for a total of 39 coins.
+For four weighings, we have 3^4 = 81 possible codewords.  As before OOOO is not allowed, so that leaves 
+us with 80 possibilities.  Again, there are 40 reflection pairs, so we can have at most 40 coins.  Note 
+that 27 codewords (modulo reflections) are allowed for coins being placed on the scale, and 13 for off the scale.   
+
+Again the restriction that we allow only equal numbers to be placed on each side of the scale means that 
+13 is the largest that can be placed on each side.  So we have 26 coins being placed on a scale at once 
+and that leaves 13 for off the scale, for a total of 39 coins.
  
- Going through this reasoning more rigorously and keeping track of the arithmetic, we conclude that
- the number of coins can be at most `(3^n - 3) / 2` where `n` is the number of weighings.  
+Going through this reasoning more rigorously and keeping track of the arithmetic, we conclude that
+the number of coins can be at most `(3^n - 3) / 2` where `n` is the number of weighings.  
  
      n = 3,  # coins = 12
      n = 4,  # coins = 39
