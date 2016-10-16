@@ -1,5 +1,5 @@
-## Partially Faceted: a collection of posts under continual revision by Chan-Ho Suh
+## More Internet Clutter
 
 Hosted by [Github Pages](http://pages.github.com).
 
-Based on Karl Broman's [simple site](http://kbroman.org/simple_site) for Jekyll.
+Powered by [Pelican](http://blog.getpelican.com), a Python-based static site generator.
