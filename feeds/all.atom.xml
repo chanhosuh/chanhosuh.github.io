@@ -92,10 +92,11 @@ a three letter codeword in the alphabet {O, L, R}.  "O" means
 the two sides balance, "L" means the left side is heavier, and "R"
 means the right side is heavier.  Examples of codewords are then 
 ORL, LLR, ROO.  &lt;/p&gt;
-&lt;p&gt;As we noted before, there are 27 possible codewords.  In order to
-find a solution the problem, we must be able to invert the encoding
+&lt;p&gt;As we noted before, there are 27 possible codewords.  In order for
+the problem to have a solution, we must be able to invert the encoding
 ("decode uniquely") to obtain the starting state.&lt;/p&gt;
-&lt;p&gt;For example, we might get OLL.  This means the first weighing
+&lt;p&gt;For example, we might get OLL as a resulting codeword of the
+weighing process.  This means the first weighing
 balanced the sides. In particular, the fake coin is off the scale.
 The second weighing pushed down the left side.  This means that
 (assuming the fake is heavier) the fake coin was on the left side
@@ -103,8 +104,11 @@ of the scale.  The last weighing did the same, so the fake coin
 was again on the left side.  If the fake is lighter, then the
 conclusion is it was on the right sides for the last two weighings.&lt;/p&gt;
 &lt;p&gt;Whether the fake is heavier or lighter, it's clear the three
-weighings give a codeword which then corresponds exactly to the 
-coin which was placed according to the codeword (or its reflection).&lt;/p&gt;
+weighings give a codeword which then corresponds exactly to a fake
+coin which was placed according to the codeword (or its reflection).
+Can there be another coin that "shadows" the fake coin, or "mirrors"
+it?  Nope, not if our solution actually works, because then we 
+wouldn't be able to deduce which coin is fake!&lt;/p&gt;
 &lt;p&gt;Thus if we have the entire set of resulting 
 codewords for a working solution, that tells us the solution itself!
 Each codeword tells us where to place a corresponding coin on each
@@ -150,10 +154,10 @@ enough codewords to cover the 24 system states (and keeping in mind
 that we place the same number on each side of the scale) we must place
 four coins on each side of the scale at each weighing.  Any less and
 there wouldn't be enough codewords.  And there are not enough codewords
-to allow 5 or more to be weighed on each side (given the first letter,
+to allow 5 or more to be weighed on each side: given the first letter,
 there are only 9 words starting with R, and 9 starting with L, half of
 them are reflections and not allowed, so we really only have 9 allowable
-words to determine which coins get placed on a scale, but only an even
+words to determine which coins get placed on a scale.  But only an even
 number of coins can be placed on the scale (half on each side), so the
 most we can have is 4 on each side at a time.&lt;/p&gt;
 &lt;p&gt;So from an information theoretic viewpoint, we see very clearly why we
