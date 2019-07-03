@@ -30,12 +30,12 @@ and served, it appealed to me that Pelican is written in Python (Jekyll is writt
 &lt;p&gt;Note the yml has the line: &lt;code&gt;after_success: ./deploy.sh&lt;/code&gt;.  This deploy script should be executable.  I stole the &lt;a href="https://github.com/chanhosuh/chanhosuh.github.io-src/blob/master/deploy.sh"&gt;deploy script&lt;/a&gt; from &lt;a href="danielfrg.github.io-source"&gt;Daniel Rodriguez's setup&lt;/a&gt;, since he has already done the hard work of figuring out the details of environment variables and so forth.  What his script does is clone the target repo to the Travis build server, copy over the Pelican output, and then git push it all. &lt;/p&gt;
 &lt;p&gt;The last part of the yml has an encrypted key used by Travis to push to your target repo.  So you need to go into your user settings --&amp;gt; developer settings --&amp;gt; Personal access tokens, where you will be able to "generate new token" and allow "Travis CI" to use it with &lt;a href="https://docs.travis-ci.com/user/github-oauth-scopes/"&gt;various permissions&lt;/a&gt;.  You can't use this token directly as it will be exposed in your public source directory, so you need to encrypt it.  Travis provides a &lt;a href="https://docs.travis-ci.com/user/encryption-keys/"&gt;tool&lt;/a&gt; to do this, but unfortunately(?) you need to install it through a ruby gem.  &lt;/p&gt;
 &lt;p&gt;Assuming you already have Ruby gems installed:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;gem install travis
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;travis&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Now from the root of your source repo, run:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;travis encrypt GH_TOKEN=your_token --add
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;travis&lt;/span&gt; &lt;span class="n"&gt;encrypt&lt;/span&gt; &lt;span class="n"&gt;GH_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;your_token&lt;/span&gt; &lt;span class="c1"&gt;--add&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 

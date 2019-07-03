@@ -62,12 +62,12 @@ and served, it appealed to me that Pelican is written in Python (Jekyll is writt
 <p>Note the yml has the line: <code>after_success: ./deploy.sh</code>.  This deploy script should be executable.  I stole the <a href="https://github.com/chanhosuh/chanhosuh.github.io-src/blob/master/deploy.sh">deploy script</a> from <a href="danielfrg.github.io-source">Daniel Rodriguez's setup</a>, since he has already done the hard work of figuring out the details of environment variables and so forth.  What his script does is clone the target repo to the Travis build server, copy over the Pelican output, and then git push it all. </p>
 <p>The last part of the yml has an encrypted key used by Travis to push to your target repo.  So you need to go into your user settings --&gt; developer settings --&gt; Personal access tokens, where you will be able to "generate new token" and allow "Travis CI" to use it with <a href="https://docs.travis-ci.com/user/github-oauth-scopes/">various permissions</a>.  You can't use this token directly as it will be exposed in your public source directory, so you need to encrypt it.  Travis provides a <a href="https://docs.travis-ci.com/user/encryption-keys/">tool</a> to do this, but unfortunately(?) you need to install it through a ruby gem.  </p>
 <p>Assuming you already have Ruby gems installed:</p>
-<div class="highlight"><pre><span></span>gem install travis
+<div class="highlight"><pre><span></span><span class="n">gem</span> <span class="n">install</span> <span class="n">travis</span>
 </pre></div>
 
 
 <p>Now from the root of your source repo, run:</p>
-<div class="highlight"><pre><span></span>travis encrypt GH_TOKEN=your_token --add
+<div class="highlight"><pre><span></span><span class="n">travis</span> <span class="n">encrypt</span> <span class="n">GH_TOKEN</span><span class="o">=</span><span class="n">your_token</span> <span class="c1">--add</span>
 </pre></div>
 
 

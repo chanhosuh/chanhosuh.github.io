@@ -34,13 +34,13 @@
                     <a href="http://chanhosuh.github.io/drafts/django-internals-requestresponse-stack.html" rel="bookmark" title="Permanent Link to &quot;Django internals - Request/Response stack&quot;">Django internals - Request/Response stack</a>
                 </h2>
 
-                <p>One of the advantages of using a web framework like Django is it does so many things out of the box for you.  The big disadvantage, of course, is that one day something mysterious will happen that you don't seem to have a hope of understanding.  For me, one of the things that has come to bite me a few times when I'm trying to test, is understanding exactly how requests get propagated through Django's middleware chain, gets processed by the view(s), returns a response which is propagated through the rest of the middleware.</p>
-<p>Turns out this is implemented in a fairly straighforward way, but it does involve knowing a bit about WSGI (to understand how the middleware stack kicks off), and understanding Django's view &amp; template interaction (which most Django devs should have a decent intuitive grasp of).</p>
-<p>The source code I'm referring to will be Django v2.1, but this part of the codebase hasn't changed much for some years.</p>
+                <p>A benefit of using a web framework like Django is it does so many things out of the box for you.  The big disadvantage, of course, is that one day something mysterious will happen, and you have no idea why.  For me, one of the things that has come to bite me a few times, particularly during unit tests, is understanding exactly how requests get propagated through Django's middleware chain, gets processed by the view(s), and returns a response which continues through the rest of the middleware.</p>
+<p>The implementation turns out to be fairly straighforward, but it does involve knowing a bit about WSGI, and understanding Django's view &amp; template interaction.</p>
+<p>For reference, my code snippets are from Django 2.1, but this part of the codebase hasn't changed much for some years.</p>
 <h2>WSGI</h2>
-<p>Let's start with a quick summary of the Web Server Gateway Interface (WSGI).  For further details and rationale behind the standards, refer to <a href="https://www.python.org/dev/peps/pep-0333/">PEP 333</a> which is very readable.  </p>
-<p>WSGI is a standard which prescribes an interface for interaction between a web server and a Python application, typically a web framework like Django, Flask, etc.  There are many implementations of WSGI, including <code>uWSGI</code> and <code>Gunicorn</code>.  </p>
-<p>Essentially a web server either runs a WSGI implementation, or connects to it if they are in separate containers.  The WSGI implementation will run a Python process which invokes a callable provided by the Python application.  The WSGI implementation handles finding the Python module with the callable and running it.</p>
+<p>Let's start with a quick summary of the Web Server Gateway Interface (WSGI).  For a readable intro with more details and rationale behind the standards, I would just recommend reading <a href="https://www.python.org/dev/peps/pep-0333/">PEP 333</a>.</p>
+<p>WSGI is a standard which prescribes an interface for interaction between a web server and a Python application, typically a web framework like Django, Flask, etc.  Two popular implementations of WSGI are uWSGI and Gunicorn. </p>
+<p>Essentially, a web server either runs a WSGI implementation, or connects to it if they are in separate containers.  The WSGI implementation runs a Python process which imports a callable provided by the Python application and invokes it upon every request.</p>
 <p>Thus WSGI requires:</p>
 <ul>
 <li>the application callable:  </li>
@@ -52,14 +52,16 @@
       response_headers = [('Content-type', 'text/plain')]
       start_response(status, response_headers)
       return ['Hello world!\n']</code></p>
-<ul>
-<li><code>environ</code> is a dictionary of environment variables, e.g. REQUEST_METHOD, PATH_INFO, QUERY_STRING, etc.  </li>
-<li><code>start_response</code> is a Python callable provided by the WSGI implementation.  More below.  </li>
-<li>The return value must be an iterable of strings.</li>
-</ul>
 <p>The example uses a function to demonstrate the signature, but the callable can be any Python object with a <code>__call__</code> method with the same signature.  </p>
 <ul>
-<li>Its own callable, <code>start_response</code>, which it hands off to the application.  Its arguments are:</li>
+<li><code>environ</code>: a dictionary of environment variables, e.g. REQUEST_METHOD, PATH_INFO, QUERY_STRING, etc.  </li>
+<li><code>start_response</code>: a Python callable provided by the WSGI implementation.  More below.  </li>
+<li>
+<p>The return value must be an iterable of strings.</p>
+</li>
+<li>
+<p>Its own callable, <code>start_response</code>, which it hands off to the application.  Its arguments are:</p>
+</li>
 <li><code>status</code>: a string giving status code and reason</li>
 <li><code>response_headers</code>: a list of valid header key-value pairs</li>
 </ul>
