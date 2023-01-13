@@ -9,6 +9,6 @@ My name is Chanho Suh.  I currently work as a researcher for <a href="https://cu
 **Resume:** [html](../assets/resume.html) | [pdf](../assets/resume.pdf)
 
 ## Contact
-The best way of reaching me is via email.  You can use `csuh.web@gmail.com`.  Please use a clear subject line and 100 words or less.  If your attempts to reach me fail and you are in dire need of my services, I can often be found in the Curve discord.
+The best way of reaching me is via email: `csuh.web@gmail.com`.  Please use a clear subject line and 50 words or less.  If your attempts to reach me fail and you are in dire need of my services, I can often be found in the Curve discord.
 
 LinkedIn and Twitter are bad ways to reach me.
