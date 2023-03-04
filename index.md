@@ -1,4 +1,4 @@
 ---
 layout: home
 ---
-DeFi believer.  More [about me](/about/).
+Shaping the future of decentralized market-making.  More [about me](/about/).
